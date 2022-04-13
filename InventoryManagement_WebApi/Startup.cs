@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using InventoryManagement.Repository;
 using InventoryManagement.Entities.Models;
+using AutoMapper;
 
 namespace InventoryManagement.WebApi
 {
@@ -39,6 +40,14 @@ namespace InventoryManagement.WebApi
 
             services.AddScoped<IRepository<Product>, BaseRepository<Product, InventoryManagementContext>>();
             services.AddScoped<IRepository<Seller>, BaseRepository<Seller, InventoryManagementContext>>();
+
+            MapperConfiguration mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddCors(o => o.AddPolicy("InventoryManagementPolicy", builder =>
             {
