@@ -1,11 +1,11 @@
-﻿using InventoryManagement_Entities;
+﻿using InventoryManagement.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace InventoryManagement_Repository
+namespace InventoryManagement.Repository
 {
     /// <summary>
     /// Defines methods for consulting an entity's backend database.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InventoryManagement_Entities
+namespace InventoryManagement.Entities
 {
     public abstract class DbObject
     {

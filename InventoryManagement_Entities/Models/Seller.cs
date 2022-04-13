@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InventoryManagement_Entities.Models
+namespace InventoryManagement.Entities.Models
 {
     public  class Seller : DbObject
     {

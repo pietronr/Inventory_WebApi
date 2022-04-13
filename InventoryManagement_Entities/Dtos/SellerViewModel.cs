@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InventoryManagement_Entities.Dtos
+namespace InventoryManagement.Entities.Dtos
 {
     public class SellerViewModel
     {

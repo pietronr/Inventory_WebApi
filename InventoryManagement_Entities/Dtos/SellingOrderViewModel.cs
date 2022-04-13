@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace InventoryManagement_Entities.Dtos
+namespace InventoryManagement.Entities.Dtos
 {
     public class SellingOrderViewModel
     {

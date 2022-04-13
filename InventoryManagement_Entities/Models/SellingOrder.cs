@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InventoryManagement_Entities.Models
+namespace InventoryManagement.Entities.Models
 {
     public class SellingOrder : DbObject
     {

@@ -1,9 +1,9 @@
-﻿using InventoryManagement_Entities;
+﻿using InventoryManagement.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DomProject_WebApi
+namespace InventoryManagement.WebApi
 {
     /// <summary>
     /// Define métodos de extensão para auxílio no cálculo.

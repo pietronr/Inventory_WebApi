@@ -1,7 +1,7 @@
-﻿using InventoryManagement_Entities;
+﻿using InventoryManagement.Entities;
 using System;
 
-namespace InventoryManagement_Repository
+namespace InventoryManagement.Repository
 {
     internal static class Extensions
     {
