@@ -1,31 +1,51 @@
+using InventoryManagement.Repository.Sql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using InventoryManagement.Repository;
+using InventoryManagement.Entities.Models;
 
-namespace InventoryManagement_WebApi
+namespace InventoryManagement.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
+
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<InventoryManagementContext>((provider, option) => {
+                var db = option.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection"), o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+                if (Environment.IsDevelopment())
+                {
+                    db.EnableSensitiveDataLogging()
+                    .UseLoggerFactory(provider.GetService<ILoggerFactory>());
+
+                }
+            });
+
+            services.AddScoped<IRepository<Product>, BaseRepository<Product, InventoryManagementContext>>();
+            services.AddScoped<IRepository<Seller>, BaseRepository<Seller, InventoryManagementContext>>();
+
+            services.AddCors(o => o.AddPolicy("InventoryManagementPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -41,7 +61,7 @@ namespace InventoryManagement_WebApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InventoryManagement_WebApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DomProject.WebApi v1"));
             }
 
             app.UseHttpsRedirection();
@@ -49,6 +69,8 @@ namespace InventoryManagement_WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("InventoryManagementPolicy");
 
             app.UseEndpoints(endpoints =>
             {
