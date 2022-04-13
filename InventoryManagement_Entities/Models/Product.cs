@@ -5,6 +5,7 @@ namespace InventoryManagement.Entities.Models
     public class Product : DbObject
     {
         public List<SellingOrder> SellingOrders { get; set; }
+        public List<ProductSellingOrder> ProductSellingOrders { get; set; }
         public Seller Seller { get; set; }
         public int SellerId { get; set; }
         public string Name { get; set; }
