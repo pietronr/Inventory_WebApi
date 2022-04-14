@@ -2,7 +2,7 @@
 
 namespace InventoryManagement.Entities.Dtos
 {
-    public class SellerViewModel
+    public class SellerViewModel : DbObject
     {
         public List<SellingOrderViewModel> SellingOrders { get; set; }
         public string Name { get; set; }
