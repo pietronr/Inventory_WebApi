@@ -40,6 +40,7 @@ namespace InventoryManagement.WebApi
 
             services.AddScoped<IRepository<Product>, BaseRepository<Product, InventoryManagementContext>>();
             services.AddScoped<IRepository<Seller>, BaseRepository<Seller, InventoryManagementContext>>();
+            services.AddScoped<IRepository<SellingOrder>, BaseRepository<SellingOrder, InventoryManagementContext>>();
 
             MapperConfiguration mapperConfig = new MapperConfiguration(mc =>
             {
