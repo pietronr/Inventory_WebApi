@@ -12,12 +12,12 @@ namespace InventoryManagement.WebApi.Controllers
     [ApiController]
     [EnableCors("InventoryManagementPolicy")]
     [Route("api/v1/[controller]")]
-    public class SellerController : Controller
+    public class SellingOrderController : Controller
     {
-        private readonly IRepository<Seller> _repository;
+        private readonly IRepository<SellingOrder> _repository;
         private readonly IMapper _mapper;
 
-        public SellerController(IRepository<Seller> repository, IMapper mapper)
+        public SellingOrderController(IRepository<SellingOrder> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -26,32 +26,32 @@ namespace InventoryManagement.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var sellers = await _repository.GetAsync();
-            IEnumerable<SellerViewModel> response = _mapper.Map<IEnumerable<SellerViewModel>>(sellers);
+            var sellingOrders = await _repository.GetAsync();
+            IEnumerable<SellingOrderViewModel> response = _mapper.Map<IEnumerable<SellingOrderViewModel>>(sellingOrders);
             return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var seller = await _repository.GetAsync(x => x.Id == id);
-            SellerViewModel response = _mapper.Map<SellerViewModel>(seller);
+            var sellingOrder = await _repository.GetAsync(x => x.Id == id);
+            SellingOrderViewModel response = _mapper.Map<SellingOrderViewModel>(sellingOrder);
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SellerViewModel seller)
+        public async Task<IActionResult> Post([FromBody] SellingOrderViewModel sellingOrder)
         {
-            seller.Id = 0;
-            Seller mapped = _mapper.Map<Seller>(seller);
-            Seller response = await _repository.InsertAsync(mapped);
+            sellingOrder.Id = 0;
+            SellingOrder mapped = _mapper.Map<SellingOrder>(sellingOrder);
+            SellingOrder response = await _repository.InsertAsync(mapped);
             return Ok(_mapper.Map<SellerViewModel>(response));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] SellerViewModel seller)
+        public async Task<IActionResult> Update([FromBody] SellingOrderViewModel sellingOrder)
         {
-            Seller mapped = _mapper.Map<Seller>(seller);
+            SellingOrder mapped = _mapper.Map<SellingOrder>(sellingOrder);
             return Ok(await _repository.UpdateAsync(mapped));
         }
 
